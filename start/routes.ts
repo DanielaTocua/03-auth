@@ -25,39 +25,39 @@ Route.get('/', async () => {
 })
 
 Route.group(()=>{
-  Route.post('/register', 'AuthController.registerUser')
-  Route.post('login','AuthController.login')
+  Route.post('/register', 'AuthController.registerUser').middleware(['auth','admin'])
+  Route.post('/login','AuthController.login')
 
   Route.group(()=>{
     Route.get('/list','UsersController.listAll')
     Route.get('/find/:id','UsersController.find')
 
-    Route.put('/update/:id','UsersController.update').middleware('auth')
+    Route.put('/update/:id','UsersController.update').middleware(['auth','admin'])
     
-    Route.delete('/delete/:id','UsersController.delete').middleware('auth')
+    Route.delete('/delete/:id','UsersController.delete').middleware(['auth','admin'])
   }).prefix('/user')
 
   Route.group(()=>{
-    Route.post('/registerBook','BooksController.registerBook').middleware('auth')
+    Route.post('/registerBook','BooksController.registerBook').middleware(['auth','editor'])
 
     Route.get('/list','BooksController.listAll')
     Route.get('/find/:id','BooksController.find')
 
-    Route.put('/update/:id','BooksController.update').middleware('auth')
+    Route.put('/update/:id','BooksController.update').middleware(['auth','editor'])
     
-    Route.delete('/delete/:id','BooksController.delete').middleware('auth')
+    Route.delete('/delete/:id','BooksController.delete').middleware(['auth','editor'])
 
   }).prefix('/book')
 
   Route.group(()=>{
-    Route.post('/registerProfile','ProfilesController.registerProfile').middleware('auth')
+    Route.post('/registerProfile','ProfilesController.registerProfile').middleware(['auth','admin'])
 
     Route.get('/list','ProfilesController.listAll')
     Route.get('/find/:id','ProfilesController.find')
 
-    Route.put('/update/:id','ProfilesController.update').middleware('auth')
+    Route.put('/update/:id','ProfilesController.update').middleware(['auth','admin'])
     
-    Route.delete('/delete/:id','ProfilesController.delete').middleware('auth')
+    Route.delete('/delete/:id','ProfilesController.delete').middleware(['auth','admin'])
 
     
   }).prefix('/profile')

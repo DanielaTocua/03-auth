@@ -24,7 +24,7 @@ export default class UsersController {
         const user = await User.find(params.id);
         
         if (user) {
-            const {name,surname,type_id, address, municipality, department,email} = request.all()
+            const {name,surname,type_id, address, municipality, department,email,profile_id} = request.all()
             user.name = name
             user.surname = surname
             user.type_id = type_id
@@ -32,6 +32,7 @@ export default class UsersController {
             user.municipality = municipality
             user.department = department
             user.email = email
+            user.profile_id = profile_id
             if (await user.save()) {
                 return {
                     "msg": "Actualizado correctamente",

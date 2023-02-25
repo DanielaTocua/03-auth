@@ -4,7 +4,6 @@ export default class AuthController {
     public async registerUser({request, auth,response}:HttpContextContract){
         const {name,surname,type_id,id,address,municipality,department,email,password, profile_id} = request.all();
         const userExists = await User.find(id)
-        console.log(userExists)
         if (userExists != null){
             return response.status(400).json({"msg":"Esta identificación ya está registrada"})
         }
